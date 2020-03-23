@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CoursesTableComponent } from './courses-table/courses-table.component'
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: CoursesTableComponent
+    component: HomeComponent
   }
 ];
 

@@ -8,14 +8,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
 import { MatInputModule } from '@angular/material/input';
+import { HomeComponent } from './home/home.component';
+import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CoursesTableComponent
+    CoursesTableComponent,
+    HomeComponent,
   ],
   imports: [
+    HttpClientModule,
+    MatCardModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

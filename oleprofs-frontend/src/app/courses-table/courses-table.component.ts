@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import COURSES_DATA from '../../static/20193'
 
 export interface PeriodicElement {
   name: string;
@@ -28,12 +29,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class CoursesTableComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['name'];
+  dataSource = new MatTableDataSource(COURSES_DATA);
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  over(event: Event) {
+    console.log(event);
+    // console.log("loool");
+  }
+
+
+  out() {
+    console.log('okkkk');
   }
 
   constructor() { }
