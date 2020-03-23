@@ -1,24 +1,12 @@
 .courses-table-container {
     width: 50%;
-    min-width: 500px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin: 0px auto;
 }
 
 .home-container {
     margin: 0px auto;
-    padding: 50px;
     display: flex;
-}
-
-.course-info-container {
-    text-align: center;
-    height: 300px;
-    min-width: 300px;
-}
-
-.selectors-container {
-    text-align: center;
-    min-width: 300px;
-    height: 300px;
+    min-width: 400px;
+    // max-width: 1000px;
+    width: 100vw;
 }
