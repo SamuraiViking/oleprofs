@@ -7,13 +7,18 @@
     <div class="home">
         <div class="left-gap"></div>
         <div class="courses-table-container">
-            <app-courses-table></app-courses-table>
+            <app-courses-table
+                [courses]="courses"
+                (setHoveredCourse)="setHoveredCourse($event)"
+            >
+            </app-courses-table>
         </div>
         <div class="right-gap"></div>
     </div>
     <div class="right-column">
-        <mat-card id="prof-info">
-            Prof Info
+        <mat-card id="prof-info"
+        >
+        {{ hoveredCourse.instructors }}
         </mat-card>
         <mat-card id="course-info">
             Course Info

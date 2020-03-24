@@ -79,10 +79,6 @@ async function getCourses(term: Number): Promise<void> {
             return
         }
 
-        if (!Object.keys(course).includes("gereqs")) {
-            course.gereqs = ["---"]
-        }
-
         course.offerings = formatOfferings(course.offerings)
 
 
@@ -91,24 +87,24 @@ async function getCourses(term: Number): Promise<void> {
         course.name = course.name.replace(allSlashes, ' / ')
 
         let filteredCourse: Course = {
-            credits: course.credits,
-            department: course.department,
-            description: course.description,
-            enrolled: course.enrolled,
-            gereqs: course.gereqs,
-            instructors: course.instructors,
-            level: course.level,
-            max: course.max,
-            name: course.name,
-            number: course.number,
-            offerings: course.offerings,
+            credits: course.credits || -1,
+            department: course.department || '---',
+            description: course.description || ['No Description'],
+            enrolled: course.enrolled || -1,
+            gereqs: course.gereqs || ['---'],
+            instructors: course.instructors || ['---'],
+            level: course.level || -1,
+            max: course.max || -1,
+            name: course.name || '---',
+            number: course.number || -1,
+            offerings: course.offerings || ['---'],
             prerequisites: course.prerequisites,
-            section: course.section,
-            semester: course.semester,
-            status: course.status,
-            term: course.term,
-            type: course.type,
-            year: course.year,
+            section: course.section || '---',
+            semester: course.semester || -1,
+            status: course.status || '---',
+            term: course.term || -1,
+            type: course.type || '---',
+            year: course.year || -1,
         }
         filteredCourses.push(filteredCourse)
     })
@@ -123,6 +119,6 @@ async function getCourses(term: Number): Promise<void> {
     });
 }
 
-getCourses(20193)
+getCourses(20203)
 
 
