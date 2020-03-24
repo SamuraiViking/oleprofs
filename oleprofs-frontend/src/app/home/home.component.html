@@ -10,6 +10,7 @@
             <app-courses-table
                 [courses]="courses"
                 (setHoveredCourse)="setHoveredCourse($event)"
+                [hoveredCourse]="hoveredCourse"
             >
             </app-courses-table>
         </div>
@@ -19,10 +20,19 @@
         <mat-card id="prof-info"
         >
         {{ hoveredCourse.instructors }}
-        </mat-card>
-        <mat-card id="course-info">
-            Course Info
-        </mat-card>
+    </mat-card>
+    <mat-card id="course-info">
+        <mat-card-title>
+            {{ hoveredCourse.name}} {{ hoveredCourse.number }}
+        </mat-card-title>
+        <br>
+        <br>
+        {{ hoveredCourse.prerequisites}}
+        <br>
+        <br>
+        {{ hoveredCourse.description }}
+        Course Info
+    </mat-card>
     </div>
 </div>
 
