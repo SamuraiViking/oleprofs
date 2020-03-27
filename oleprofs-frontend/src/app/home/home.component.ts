@@ -12,13 +12,13 @@ import { FormControl } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   courses = new MatTableDataSource(SPRING_2020_COURSES);
-  nameFilter = new FormControl();
+  gereqsFilter = new FormControl();
+  departmentFilter = new FormControl();
   hoveredCourse: Course = SPRING_2020_COURSES[0]
-  hoveredProfs = []
   globalFilter = '';
 
   filteredValues = {
-    name: '',
+    gereqs: '', department: '',
   };
 
   constructor() { }
@@ -59,8 +59,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.setHoveredProfs()
 
-    this.nameFilter.valueChanges.subscribe((nameFilterValue) => {
-      this.filteredValues['name'] = nameFilterValue;
+    this.gereqsFilter.valueChanges.subscribe((gereqsFilterValue) => {
+      this.filteredValues['gereqs'] = gereqsFilterValue;
+      this.courses.filter = JSON.stringify(this.filteredValues);
+    });
+
+    this.departmentFilter.valueChanges.subscribe((departmentFilterValue) => {
+      this.filteredValues['department'] = departmentFilterValue;
       this.courses.filter = JSON.stringify(this.filteredValues);
     });
 
@@ -68,12 +73,12 @@ export class HomeComponent implements OnInit {
   }
 
   customFilterPredicate() {
-    const myFilterPredicate = (data: any, filter: string): boolean => {
+    const myFilterPredicate = (data: Course, filter: string): boolean => {
       var globalMatch = !this.globalFilter;
 
       if (this.globalFilter) {
         // search all text fields
-        globalMatch = data.name.toString().trim().toLowerCase().indexOf(this.globalFilter.toLowerCase()) !== -1;
+        globalMatch = data.gereqs.toString().trim().toLowerCase().indexOf(this.globalFilter.toLowerCase()) !== -1;
       }
 
       if (!globalMatch) {
@@ -81,7 +86,8 @@ export class HomeComponent implements OnInit {
       }
 
       let searchString = JSON.parse(filter);
-      return data.name.toString().trim().toLowerCase().indexOf(searchString.name.toLowerCase()) !== -1;
+      return data.gereqs.toString().trim().toLowerCase().indexOf(searchString.gereqs.toLowerCase()) !== -1 &&
+        data.department.toString().trim().toLowerCase().indexOf(searchString.department.toLowerCase()) !== -1;
     }
     return myFilterPredicate;
   }

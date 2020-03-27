@@ -2,11 +2,6 @@
 
     <div class="filter-row">
 
-        <mat-form-field class="filter expand">
-          <mat-label>Name</mat-label>
-          <input matInput [formControl]="nameFilter">
-        </mat-form-field>
-
         <app-filter
           class="expand"
           [courses]="courses"
@@ -25,21 +20,25 @@
 
     <div class="filter-row">
 
-        <app-filter
-        class="expand"
-        [courses]="courses"
-        [label]="'Gereqs'"
-        [columnsToFilter]="'gereqs'"
-        ></app-filter>
+        <mat-form-field class="filter expand">
+          <mat-label>Gereqs</mat-label>
+          <input matInput [formControl]="gereqsFilter">
+        </mat-form-field>
 
         <div class="gap"></div>
 
-        <app-filter
+        <mat-form-field class="filter expand">
+          <mat-label>Department</mat-label>
+          <input matInput [formControl]="departmentFilter">
+        </mat-form-field>
+
+
+        <!-- <app-filter
           class="expand"
           [courses]="courses"
           [label]="'Department'"
           [columnsToFilter]="'department'"
-        ></app-filter>
+        ></app-filter> -->
 
     </div>
 

@@ -9,14 +9,8 @@ import { FormControl } from '@angular/forms';
 
 export class FiltersComponent implements OnInit {
   @Input() courses: any;
-  @Input() nameFilter;
-
-  private filterValues = { id: '', name: '' }
-
-  filteredValues = {
-    position: '', name: '', weight: '',
-    symbol: '', topFilter: false
-  };
+  @Input() gereqsFilter;
+  @Input() departmentFilter;
 
   constructor() { }
 
