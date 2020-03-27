@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseInfoComponent } from './course-info/course-info.component';
 import { ProfsInfoComponent } from './profs-info/profs-info.component';
+import { FilterOptionsComponent } from './filter-options/filter-options.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ProfsInfoComponent } from './profs-info/profs-info.component';
     HomeComponent,
     CourseInfoComponent,
     ProfsInfoComponent,
+    FilterOptionsComponent,
   ],
   imports: [
     FormsModule,

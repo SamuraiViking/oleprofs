@@ -1,11 +1,17 @@
 <div class="home">
     <div class="left-column">
-        <app-courses-table
-            [courses]="courses"
-            (setHoveredCourse)="setHoveredCourse($event)"
-            [hoveredCourse]="hoveredCourse"
-        >
-        </app-courses-table>
+        <div class="filter-options-container">
+            <app-filter-options>
+            </app-filter-options>
+        </div>
+        <div class="courses-table-container">            
+            <app-courses-table
+                [courses]="courses"
+                (setHoveredCourse)="setHoveredCourse($event)"
+                [hoveredCourse]="hoveredCourse"
+            >
+            </app-courses-table>
+        </div>
     </div>
     <div class="right-column">
         <div class="profs-info-container">
