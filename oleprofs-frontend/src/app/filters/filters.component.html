@@ -2,6 +2,11 @@
 
     <div class="filter-row">
 
+        <mat-form-field class="filter expand">
+          <mat-label>Name</mat-label>
+          <input matInput [formControl]="nameFilter">
+        </mat-form-field>
+
         <app-filter
           class="expand"
           [courses]="courses"
@@ -14,8 +19,8 @@
           class="expand"
           [courses]="courses"
           [label]="'Status'"
+          [columnsToFilter]="'status'"
         ></app-filter>
-
     </div>
 
     <div class="filter-row">
@@ -24,6 +29,7 @@
         class="expand"
         [courses]="courses"
         [label]="'Gereqs'"
+        [columnsToFilter]="'gereqs'"
         ></app-filter>
 
         <div class="gap"></div>
@@ -32,6 +38,7 @@
           class="expand"
           [courses]="courses"
           [label]="'Department'"
+          [columnsToFilter]="'department'"
         ></app-filter>
 
     </div>

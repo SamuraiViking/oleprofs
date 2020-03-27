@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-filters',
@@ -8,6 +9,14 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class FiltersComponent implements OnInit {
   @Input() courses: any;
+  @Input() nameFilter;
+
+  private filterValues = { id: '', name: '' }
+
+  filteredValues = {
+    position: '', name: '', weight: '',
+    symbol: '', topFilter: false
+  };
 
   constructor() { }
 

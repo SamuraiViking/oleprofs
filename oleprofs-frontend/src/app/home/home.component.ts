@@ -3,6 +3,7 @@ import SPRING_2020_COURSES from '../../static/terms/20203'
 import { MatTableDataSource } from '@angular/material/table';
 import { Course } from '../interfaces/Course'
 import profs from '../../static/profsData'
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,15 @@ import profs from '../../static/profsData'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  courses = new MatTableDataSource(SPRING_2020_COURSES)
+  courses = new MatTableDataSource(SPRING_2020_COURSES);
+  nameFilter = new FormControl();
   hoveredCourse: Course = SPRING_2020_COURSES[0]
   hoveredProfs = []
+  globalFilter = '';
+
+  filteredValues = {
+    name: '',
+  };
 
   constructor() { }
 
@@ -51,6 +58,32 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setHoveredProfs()
+
+    this.nameFilter.valueChanges.subscribe((nameFilterValue) => {
+      this.filteredValues['name'] = nameFilterValue;
+      this.courses.filter = JSON.stringify(this.filteredValues);
+    });
+
+    this.courses.filterPredicate = this.customFilterPredicate();
+  }
+
+  customFilterPredicate() {
+    const myFilterPredicate = (data: any, filter: string): boolean => {
+      var globalMatch = !this.globalFilter;
+
+      if (this.globalFilter) {
+        // search all text fields
+        globalMatch = data.name.toString().trim().toLowerCase().indexOf(this.globalFilter.toLowerCase()) !== -1;
+      }
+
+      if (!globalMatch) {
+        return;
+      }
+
+      let searchString = JSON.parse(filter);
+      return data.name.toString().trim().toLowerCase().indexOf(searchString.name.toLowerCase()) !== -1;
+    }
+    return myFilterPredicate;
   }
 
 }

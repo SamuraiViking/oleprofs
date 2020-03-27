@@ -3,6 +3,7 @@ import { Course } from '../interfaces/Course'
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-courses-table',
