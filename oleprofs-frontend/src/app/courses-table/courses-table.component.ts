@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Course } from '../../static/Course'
+import { Course } from '../interfaces/Course'
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -16,7 +16,6 @@ export class CoursesTableComponent implements OnInit {
   @Output() setHoveredCourse: EventEmitter<any> = new EventEmitter();
   @Input() hoveredCourse: Course;
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
   applyFilter(event: Event) {
@@ -36,18 +35,6 @@ export class CoursesTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.courses)
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 }

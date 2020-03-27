@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import SPRING_2020_COURSES from '../../static/20203'
+import SPRING_2020_COURSES from '../../static/terms/20203'
 import { MatTableDataSource } from '@angular/material/table';
-import { Course } from '../../static/Course'
+import { Course } from '../interfaces/Course'
 import profs from '../../static/profsData'
 
 @Component({

@@ -1,6 +1,6 @@
 import * as request from "request-promise-native";
 import { writeFile } from 'fs';
-import { Course } from "./Course"
+import { Course } from "../interfaces/Course"
 
 function daySylabol(day) {
     const daysToSymbol = {
