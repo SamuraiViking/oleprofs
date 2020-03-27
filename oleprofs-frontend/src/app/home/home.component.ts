@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
   setHoveredCourse(newHoveredCourse: Course): void {
     this.hoveredCourse = newHoveredCourse
     this.setHoveredProfs()
-    console.log(this.hoveredProfs)
   }
 
   ngOnInit(): void {

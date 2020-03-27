@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filter-options',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-options.component.scss']
 })
 export class FilterOptionsComponent implements OnInit {
+  @Input() courses: any;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.courses.filter = filterValue.trim().toLowerCase();
+  }
 }

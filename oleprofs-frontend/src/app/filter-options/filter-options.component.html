@@ -36,7 +36,7 @@
 
         <mat-form-field class="filter">
           <mat-label>Key Words</mat-label>
-          <input matInput placeholder="">
+          <input matInput (keyup)="applyFilter($event)" placeholder="">
         </mat-form-field>
 
     </div>

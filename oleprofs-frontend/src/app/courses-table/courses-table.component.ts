@@ -36,6 +36,7 @@ export class CoursesTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.courses)
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
