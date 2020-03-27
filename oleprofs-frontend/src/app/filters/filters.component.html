@@ -1,0 +1,48 @@
+<div class="filter-options">
+
+    <div class="filter-row">
+
+        <app-filter
+          class="expand"
+          [courses]="courses"
+          [label]="'Term'"
+        ></app-filter>
+
+        <div class="gap"></div>
+
+        <app-filter
+          class="expand"
+          [courses]="courses"
+          [label]="'Status'"
+        ></app-filter>
+
+    </div>
+
+    <div class="filter-row">
+
+        <app-filter
+        class="expand"
+        [courses]="courses"
+        [label]="'Gereqs'"
+        ></app-filter>
+
+        <div class="gap"></div>
+
+        <app-filter
+          class="expand"
+          [courses]="courses"
+          [label]="'Department'"
+        ></app-filter>
+
+    </div>
+
+    <div class="filter-row">
+        <app-filter
+          class="expand"
+          [label]="'Key Words'"
+          [courses]="courses"
+          [placeholder]="'Ex. literaly anything'"
+        ></app-filter>
+    </div>
+
+</div>

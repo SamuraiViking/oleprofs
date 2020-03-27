@@ -3,7 +3,6 @@ import cheerio = require('cheerio');
 import { writeFile } from 'fs';
 
 
-
 async function scrapeNumOfProfs() {
     const response = await axios.get(`https://www.ratemyprofessors.com/search.jsp?query=St.+Olaf&queryoption=HEADER&stateselect=&country=&dept=&queryBy=teacherName&facetSearch=true&schoolName=&offset=0&max=20`);
     const $ = await cheerio.load(response.data);

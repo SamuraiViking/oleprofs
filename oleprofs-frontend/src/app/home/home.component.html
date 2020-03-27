@@ -3,22 +3,17 @@
     <div class="left-column">
 
         <div class="filter-options-container">
-
-            <app-filter-options
+            <app-filters
                 [courses]="courses"
-            >
-            </app-filter-options>
-
+            ></app-filters>
         </div>
 
         <div class="courses-table-container">            
-
             <app-courses-table
                 [courses]="courses"
                 (setHoveredCourse)="setHoveredCourse($event)"
                 [hoveredCourse]="hoveredCourse"
             ></app-courses-table>
-
         </div>
 
     </div>
@@ -26,15 +21,15 @@
     <div class="right-column">
 
         <div class="profs-info-container">
-
-            <app-profs-info [hoveredProfs]="hoveredProfs"></app-profs-info>
-
+            <app-profs-info 
+                [hoveredProfs]="hoveredProfs">
+            </app-profs-info>
         </div>
 
         <div class="course-info-container">
-
-            <app-course-info [hoveredCourse]="hoveredCourse"></app-course-info>
-
+            <app-course-info 
+                [hoveredCourse]="hoveredCourse">
+            </app-course-info>
         </div>
 
     </div>
