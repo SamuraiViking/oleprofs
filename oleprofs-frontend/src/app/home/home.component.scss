@@ -1,12 +1,25 @@
-.courses-table-container {
-    width: 50%;
-    margin: 0px auto;
+.left-column {
+    width: 600px;
 }
 
-.home-container {
-    margin: 0px auto;
+.right-column {
+    position: sticky;
+    height: 500px;
+    top: 0;
+    width: 300px;
+    margin-left: 30px;
+}
+
+.profs-info-container {
+    margin-bottom: 20px;
+}
+
+.course-info-container {
+    min-height: 500px;
+}
+
+.home {
+    margin: 30px auto 0 auto;
     display: flex;
-    min-width: 400px;
-    // max-width: 1000px;
-    width: 100vw;
+    width: 900px;
 }

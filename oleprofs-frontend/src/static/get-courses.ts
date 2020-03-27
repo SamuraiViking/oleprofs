@@ -35,87 +35,90 @@ function formatOfferings(offerings) {
     return formattedOfferings
 }
 
-async function getCourses(term: Number): Promise<void> {
-    const baseUrl = `https://stolaf.dev/course-data/terms/${term}.json`;
-    var options = {
-        uri: baseUrl,
-    };
-    const courses: string = await request.get(options);
-    const parsedCourses: Object[] = JSON.parse(courses)
+function invalidCourse(course) {
+    const invalidNames = [
+        'Academic Internship',
+        'Independent Research',
+        'IR/',
+        'IS/',
+        'Senior Project',
+        'Intercol',
+    ]
 
+    // if course.name includes any of the invalidNames above return true
+    for (let invalidName in invalidNames) {
+        if (course.name.includes(invalidName)) {
+            return true;
+        }
+    }
 
-    let filteredCourses: Course[] = [];
-    parsedCourses.forEach((course: Course) => {
+    // if course object has no offerings attrib return true
+    if (!Object.keys(course).includes("offerings")) {
+        return true
+    }
+    return false
+}
 
-        if (course.name === 'Academic Internship') {
+function formatCourse(course) {
+    course.offerings = formatOfferings(course.offerings)
+    course.name = course.name.replace(/\//g, ' / ')
+
+    if (course.prerequisites) {
+        course.prerequisites = course.prerequisites.replace("Prerequisites:", '');
+    }
+    return course
+}
+
+function addDefaultsToCourse(course): Course {
+    return {
+        credits: course.credits || -1,
+        department: course.department || '---',
+        description: course.description || ['No Description'],
+        enrolled: course.enrolled || -1,
+        gereqs: course.gereqs || ['---'],
+        instructors: course.instructors || ['---'],
+        level: course.level || -1,
+        max: course.max || -1,
+        name: course.name || '---',
+        number: course.number || -1,
+        offerings: course.offerings || ['---'],
+        prerequisites: course.prerequisites || 'None',
+        section: course.section || '',
+        semester: course.semester || -1,
+        status: course.status || '',
+        term: course.term || -1,
+        type: course.type || '---',
+        year: course.year || -1,
+        profId: course.profId || -1,
+    }
+}
+
+function getProfIds(course) {
+    if (course.length == 0) {
+        return [-1]
+    }
+
+}
+
+function formatCourses(courses) {
+    let formattedCourses = []
+    courses.forEach((course: Course) => {
+
+        if (invalidCourse(course)) {
             return
         }
 
-        if (course.name.includes('Lab')) {
-            return
-        }
+        course = formatCourse(course);
+        course = addDefaultsToCourse(course);
+        // course.profId = getProfIds(course.instructors);
 
-        if (course.name.includes('Independent Research')) {
-            return
-        }
-
-        if (course.name.includes('IR/')) {
-            return
-        }
-
-        if (course.name.includes("IS/")) {
-            return
-        }
-
-        if (course.name.includes("Senior Project")) {
-            return
-        }
-
-        if (course.name.includes("Intercol")) {
-            return
-        }
-
-        if (!Object.keys(course).includes("offerings")) {
-            return
-        }
-
-        if (!Object.keys(course).includes("gereqs")) {
-            course.gereqs = ["---"]
-        }
-
-        course.offerings = formatOfferings(course.offerings)
-
-
-        const allSlashes = /\//g
-
-        course.name = course.name.replace(allSlashes, ' / ')
-
-        let filteredCourse: Course = {
-            credits: course.credits,
-            department: course.department,
-            description: course.description,
-            enrolled: course.enrolled,
-            gereqs: course.gereqs,
-            instructors: course.instructors,
-            level: course.level,
-            max: course.max,
-            name: course.name,
-            number: course.number,
-            offerings: course.offerings,
-            prerequisites: course.prerequisites,
-            section: course.section,
-            semester: course.semester,
-            status: course.status,
-            term: course.term,
-            type: course.type,
-            year: course.year,
-        }
-        filteredCourses.push(filteredCourse)
+        formattedCourses.push(course)
     })
+    return formattedCourses
+}
 
-    const coursesToWrite: string = JSON.stringify(filteredCourses)
-
-    writeFile(`${term}.ts`, coursesToWrite, function (err) {
+function writeCourses(file, courses) {
+    writeFile(file, courses, function (err) {
         if (err) {
             return console.error(err);
         }
@@ -123,6 +126,16 @@ async function getCourses(term: Number): Promise<void> {
     });
 }
 
-getCourses(20193)
+async function getCourses(term: Number): Promise<void> {
+    const url = `https://stolaf.dev/course-data/terms/${term}.json`
+    const courses: string = await request.get(url);
+    const parsedCourses: Object[] = await JSON.parse(courses)
+    const formattedCourses = formatCourses(parsedCourses)
+    console.log(formattedCourses)
+    const coursesToWrite: string = "export default " + JSON.stringify(formattedCourses)
+    writeCourses(`${term}.ts`, coursesToWrite)
+}
+
+getCourses(20203)
 
 

@@ -1,12 +1,19 @@
-<div class="home-container">
-    <!-- <mat-card class="selectors-container">
-        drop down selectors
-    </mat-card> -->
-    <div class="courses-table-container">
-        <app-courses-table></app-courses-table>
+<div class="home">
+    <div class="left-column">
+        <app-courses-table
+            [courses]="courses"
+            (setHoveredCourse)="setHoveredCourse($event)"
+            [hoveredCourse]="hoveredCourse"
+        >
+        </app-courses-table>
     </div>
-    <!-- <mat-card class="course-info-container">
-        Course Info
-    </mat-card> -->
+    <div class="right-column">
+        <div class="profs-info-container">
+            <app-profs-info [hoveredProfs]="hoveredProfs"></app-profs-info>
+        </div>
+        <div class="course-info-container">
+            <app-course-info [hoveredCourse]="hoveredCourse"></app-course-info>
+        </div>
+    </div>
 </div>
 

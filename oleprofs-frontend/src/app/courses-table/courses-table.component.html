@@ -1,10 +1,50 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
-</mat-form-field>
+<div class="flex">
+  <mat-form-field>
+    <mat-label>Term</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. AQR, CSCI, MWF, 1030, etc">
+  </mat-form-field>
+  <div class="gap"></div>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. AQR, CSCI, MWF, 1030, etc">
+  </mat-form-field>
+</div>
+<div class="flex">
+  <mat-form-field>
+    <mat-label>Gereqs</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. AQR, CSCI, MWF, 1030, etc">
+  </mat-form-field>
+  <div class="gap"></div>
+  <mat-form-field>
+    <mat-label>Department</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. AQR, CSCI, MWF, 1030, etc">
+  </mat-form-field>
+</div>
+<div class="flex">
+  <mat-form-field>
+    <mat-label>Key Words</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. AQR, CSCI, MWF, 1030, etc">
+  </mat-form-field>
+</div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
 
+
+<table mat-table [dataSource]="courses" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -15,31 +55,11 @@
     </td>
   </ng-container>
 
-  <!-- Department Column
-  <ng-container matColumnDef="department">
-    <th mat-header-cell *matHeaderCellDef> Dept </th>
-    <td mat-cell *matCellDef="let course">
-      <div class="table-row">
-        {{course.department }}
-      </div>
-    </td>
-  </ng-container> -->
-
-  <!-- Instructors Column
-  <ng-container matColumnDef="instructors">
-    <th mat-header-cell *matHeaderCellDef> Prof </th>
-    <td mat-cell *matCellDef="let course">
-      <div class="table-row" *ngFor="let instructor of course.instructors">
-        {{ instructor }}
-      </div>
-    </td>
-  </ng-container> -->
-
-  <!-- Instructors Column -->
+  <!-- Offerings Column -->
   <ng-container matColumnDef="offerings">
     <th mat-header-cell *matHeaderCellDef> Time </th>
     <td mat-cell *matCellDef="let course">
-      <div class="table-row" *ngFor="let offering of course.offerings">
+      <div class="offerings-row" *ngFor="let offering of course.offerings">
         {{ offering }}
       </div>
     </td>
@@ -48,13 +68,16 @@
   <ng-container matColumnDef="gereqs">
     <th mat-header-cell *matHeaderCellDef> Gereqs </th>
     <td mat-cell *matCellDef="let course">
-      <div class="table-row" *ngFor="let gereq of course.gereqs">
+      <div class="gereqs-row" *ngFor="let gereq of course.gereqs">
         {{ gereq }}
       </div>
     </td>
   </ng-container>
 
-
-  <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    (mouseenter)="onMouseEnter($event, row)"
+    (mouseleave)="onMouseLeave($event)"
+    >
+  </tr>
 </table>

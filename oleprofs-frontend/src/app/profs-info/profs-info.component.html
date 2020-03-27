@@ -1,0 +1,15 @@
+<mat-card class="profs-info">
+    <mat-card-content *ngFor="let prof of hoveredProfs">
+        <h3>{{ prof.name }}</h3>
+        <ul class="">
+            <li> Rating {{ prof.rating }} </li>
+            <li> Difficulty {{ prof.difficulty }} </li>
+            <li> Would Take Again {{ prof.wouldTakeAgain }}% </li>
+            <li>
+                <a href="https://www.ratemyprofessors.com/ShowRatings.jsp?tid={{prof.id}}" target="_blank">
+                    {{ prof.reviews }} Reviews
+                </a>
+            </li>
+        </ul>
+    </mat-card-content>
+</mat-card>
