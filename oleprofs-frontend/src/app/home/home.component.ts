@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import FALL_2020_COURSES from '../../static/terms/20201'
+import INTERIM_2020_COURSES from '../../static/terms/20202'
 import SPRING_2020_COURSES from '../../static/terms/20203'
 import { MatTableDataSource } from '@angular/material/table';
 import { Course } from '../interfaces/Course'
 import profs from '../../static/profsData'
 import { FormControl } from '@angular/forms';
+import terms from '../../static/filter-options/terms'
+import statusOptions from '../../static/filter-options/status'
+import departmentOptions from '../../static/filter-options/departments'
+import gereqOptions from '../../static/filter-options/gereps'
+
 
 @Component({
   selector: 'app-home',
@@ -16,10 +23,16 @@ export class HomeComponent implements OnInit {
   departmentFilter = new FormControl();
   hoveredCourse: Course = SPRING_2020_COURSES[0]
   globalFilter = '';
+  hoveredProfs;
+  terms = terms;
+  statusOptions = statusOptions;
+  departmentOptions = departmentOptions;
+  gereqOptions = gereqOptions;
 
-  filteredValues = {
-    gereqs: '', department: '',
-  };
+  selectedGereq = ''
+  selectedDepartment = ''
+  selectedTerm = '20191'
+  selectedStatus = ''
 
   constructor() { }
 
@@ -58,38 +71,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setHoveredProfs()
-
-    this.gereqsFilter.valueChanges.subscribe((gereqsFilterValue) => {
-      this.filteredValues['gereqs'] = gereqsFilterValue;
-      this.courses.filter = JSON.stringify(this.filteredValues);
-    });
-
-    this.departmentFilter.valueChanges.subscribe((departmentFilterValue) => {
-      this.filteredValues['department'] = departmentFilterValue;
-      this.courses.filter = JSON.stringify(this.filteredValues);
-    });
-
-    this.courses.filterPredicate = this.customFilterPredicate();
   }
 
-  customFilterPredicate() {
-    const myFilterPredicate = (data: Course, filter: string): boolean => {
-      var globalMatch = !this.globalFilter;
-
-      if (this.globalFilter) {
-        // search all text fields
-        globalMatch = data.gereqs.toString().trim().toLowerCase().indexOf(this.globalFilter.toLowerCase()) !== -1;
-      }
-
-      if (!globalMatch) {
-        return;
-      }
-
-      let searchString = JSON.parse(filter);
-      return data.gereqs.toString().trim().toLowerCase().indexOf(searchString.gereqs.toLowerCase()) !== -1 &&
-        data.department.toString().trim().toLowerCase().indexOf(searchString.department.toLowerCase()) !== -1;
+  changeTerm(event: Event) {
+    const selectedTermToCoursesData = {
+      20191: FALL_2020_COURSES,
+      20192: INTERIM_2020_COURSES,
+      20193: SPRING_2020_COURSES,
     }
-    return myFilterPredicate;
+    const coursesData = selectedTermToCoursesData[this.selectedTerm]
+    this.courses = new MatTableDataSource(coursesData);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.courses.filter = filterValue.trim().toLowerCase();
   }
 
 }

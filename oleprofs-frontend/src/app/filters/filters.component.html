@@ -2,53 +2,62 @@
 
     <div class="filter-row">
 
-        <app-filter
-          class="expand"
-          [courses]="courses"
-          [label]="'Term'"
-        ></app-filter>
+      <!-- <mat-form-field class="filter expand">
+        <mat-label>Term</mat-label>
+        <input matInput 
+          [formControl]="departmentFilter"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option2 of filteredDepartmentOptions | async" [value]="option2">
+            {{option2}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-        <div class="gap"></div>
+      <div class="gap"></div>
 
-        <app-filter
-          class="expand"
-          [courses]="courses"
-          [label]="'Status'"
-          [columnsToFilter]="'status'"
-        ></app-filter>
-    </div>
-
-    <div class="filter-row">
-
-        <mat-form-field class="filter expand">
-          <mat-label>Gereqs</mat-label>
-          <input matInput [formControl]="gereqsFilter">
-        </mat-form-field>
-
-        <div class="gap"></div>
-
-        <mat-form-field class="filter expand">
-          <mat-label>Department</mat-label>
-          <input matInput [formControl]="departmentFilter">
-        </mat-form-field>
-
-
-        <!-- <app-filter
-          class="expand"
-          [courses]="courses"
-          [label]="'Department'"
-          [columnsToFilter]="'department'"
-        ></app-filter> -->
+      <mat-form-field class="filter expand">
+        <mat-label>Status</mat-label>
+        <input matInput 
+          [formControl]="departmentFilter"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option2 of filteredDepartmentOptions | async" [value]="option2">
+            {{option2}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
 
     </div>
 
     <div class="filter-row">
-        <app-filter
-          class="expand"
-          [label]="'Key Words'"
-          [courses]="courses"
-          [placeholder]="'Ex. literaly anything'"
-        ></app-filter>
+
+      <mat-form-field class="filter expand">
+        <mat-label>Department</mat-label>
+        <input matInput 
+          [formControl]="departmentFilter"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option2 of filteredDepartmentOptions | async" [value]="option2">
+            {{option2}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <div class="gap"></div>
+
+      <mat-form-field class="filter expand">
+        <mat-label>Gereqs</mat-label>
+        <input matInput 
+              [formControl]="gereqsFilter"
+              [matAutocomplete]="autoTest">
+        <mat-autocomplete #autoTest="matAutocomplete">
+          <mat-option *ngFor="let option of filteredGereqsOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
     </div>
 
 </div>

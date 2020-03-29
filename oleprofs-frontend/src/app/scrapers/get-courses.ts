@@ -93,13 +93,6 @@ function addDefaultsToCourse(course): Course {
     }
 }
 
-function getProfIds(course) {
-    if (course.length == 0) {
-        return [-1]
-    }
-
-}
-
 function formatCourses(courses) {
     let formattedCourses = []
     courses.forEach((course: Course) => {
@@ -110,7 +103,6 @@ function formatCourses(courses) {
 
         course = formatCourse(course);
         course = addDefaultsToCourse(course);
-        // course.profId = getProfIds(course.instructors);
 
         formattedCourses.push(course)
     })
@@ -131,11 +123,10 @@ async function getCourses(term: Number): Promise<void> {
     const courses: string = await request.get(url);
     const parsedCourses: Object[] = await JSON.parse(courses)
     const formattedCourses = formatCourses(parsedCourses)
-    console.log(formattedCourses)
     const coursesToWrite: string = "export default " + JSON.stringify(formattedCourses)
     writeCourses(`${term}.ts`, coursesToWrite)
 }
 
-getCourses(20203)
+getCourses(20211)
 
 
