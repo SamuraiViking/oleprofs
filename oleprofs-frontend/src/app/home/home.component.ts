@@ -10,6 +10,7 @@ import terms from '../../static/filter-options/terms'
 import statusOptions from '../../static/filter-options/status'
 import departmentOptions from '../../static/filter-options/departments'
 import gereqOptions from '../../static/filter-options/gereps'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -20,15 +21,16 @@ import gereqOptions from '../../static/filter-options/gereps'
 
 export class HomeComponent implements OnInit {
   courses = new MatTableDataSource(SPRING_2020_COURSES);
-  gereqsFilter = new FormControl();
-  departmentFilter = new FormControl();
   hoveredCourse: Course = SPRING_2020_COURSES[0]
+  geReqsControl = new FormControl();
+
   globalFilter = '';
   hoveredProfs;
   terms = terms;
   statusOptions = statusOptions;
   departmentOptions = departmentOptions;
   gereqOptions = gereqOptions;
+  faSearch = faSearch;
 
   selectedGereq = ''
   selectedDepartment = ''
@@ -81,9 +83,17 @@ export class HomeComponent implements OnInit {
 
   customfilterPredicate(data: Course, filter: string): boolean {
     filter = JSON.parse(filter);
+
+    const selectedGereqs: string[] = filter['gereqs'].split(',')
+
+    for (let i = 0; i < selectedGereqs.length; i++) {
+      if (!data.gereqs.toString().toLowerCase().includes(selectedGereqs[i])) {
+        return false
+      }
+    }
+
     return data.status.toLowerCase().includes(filter['status']) &&
       data.department.toLowerCase().includes(filter['department']) &&
-      data.gereqs.toString().toLowerCase().includes(filter['gereqs']) &&
       (data.status.toLowerCase().includes(filter['globalFilter']) ||
         data.gereqs.toString().toLowerCase().includes(filter['globalFilter']) ||
         data.department.toLowerCase().includes(filter['globalFilter']) ||
@@ -128,7 +138,7 @@ export class HomeComponent implements OnInit {
     const filterValues = {
       status: this.selectedStatus.toLowerCase(),
       department: this.selectedDepartment.toLowerCase(),
-      gereqs: this.selectedGereq.toLowerCase(),
+      gereqs: this.selectedGereq.toString().toLowerCase(),
       globalFilter: this.globalFilter.toLowerCase(),
     }
     this.courses.filter = JSON.stringify(filterValues);

@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseInfoComponent } from './course-info/course-info.component';
 import { ProfsInfoComponent } from './profs-info/profs-info.component';
 import { FilterComponent } from './filter/filter.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FilterComponent } from './filter/filter.component';
     BrowserAnimationsModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

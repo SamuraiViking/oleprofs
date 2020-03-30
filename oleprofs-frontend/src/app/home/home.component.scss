@@ -1,5 +1,6 @@
 .left-column {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
 }
 
 .right-column {
@@ -11,17 +12,20 @@
 }
 
 .profs-info-container {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .course-info-container {
-    min-height: 500px;
+    // max-height: 300px;
+    // overflow: scroll;
+    // min-height: 300px;
 }
 
 .home {
     margin: 30px auto 0 auto;
     display: flex;
-    width: 900px;
+    max-width: 900px;
+    width: 100%;
 }
 
 .flex {
@@ -33,6 +37,41 @@
 }
 
 .filters {
-    // position: sticky;
-    top: 0;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.search-text {
+    margin-left: 8px;
+}
+
+.search-text-container {
+    // font-size: 18px;
+}
+
+// .courses-table-container {
+//     width: 100%;
+// }
+
+@media screen and (max-width: 400px) {
+    .flex {
+        display: block;
+        // background: blue;    
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .course-info-container {
+        visibility: hidden;
+        height: 0px;
+    }
+
+    .profs-info-container {
+        visibility: hidden;
+        height: 0px;
+    }
+
+    .home {
+        display: block;
+    }
 }

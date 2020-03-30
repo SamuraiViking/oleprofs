@@ -2,69 +2,79 @@
 
     <div class="left-column">
         
-        <div class="flex">
-            <mat-form-field class="expand">
-                <mat-label>Term</mat-label>
-                <mat-select 
-                    (selectionChange)="changeTerm($event)"
-                    [(value)]="selectedTerm">
-                    <mat-option *ngFor="let term of terms" [value]="term.value">
-                    {{term.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <div class="gap"></div>
-
-            <mat-form-field class="expand">
-                <mat-label>Status</mat-label>
-                <mat-select 
-                    [(value)]="selectedStatus"
-                    (selectionChange)="applyFilter()"
+        <div class="filters">
+            <div class="flex">
+                <mat-form-field class="expand">
+                    <mat-label>Term</mat-label>
+                    <mat-select 
+                        (selectionChange)="changeTerm($event)"
+                        [(value)]="selectedTerm">
+                        <mat-option *ngFor="let term of terms" [value]="term.value">
+                        {{term.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <div class="gap"></div>
+    
+                <mat-form-field class="expand">
+                    <mat-label>Status</mat-label>
+                    <mat-select 
+                        [(value)]="selectedStatus"
+                        (selectionChange)="applyFilter()"
+                    >
+                        <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                        {{status.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+            </div>
+    
+            <div class="flex">
+                <mat-form-field class="expand">
+                    <mat-label>Department</mat-label>
+                    <mat-select 
+                        [(value)]="selectedDepartment"
+                        (selectionChange)="applyFilter()"
+                    >
+                        <mat-option *ngFor="let department of departmentOptions" [value]="department.value">
+                        {{department.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <div class="gap"></div>
+    
+                <mat-form-field class="expand">
+                    <mat-label>Gereqs</mat-label>
+                    <mat-select 
+                        [(value)]="selectedGereq"
+                        (selectionChange)="changeGereqs($event)"
+                        [formControl]="geReqsControl"
+                        multiple
+                    >
+                        <mat-option *ngFor="let gereq of gereqOptions" [value]="gereq.value">
+                        {{gereq.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+    
+            <!-- Global Filter -->
+            <div class="search-bar">
+                <mat-form-field
+                    class="expand"
                 >
-                    <mat-option *ngFor="let status of statusOptions" [value]="status.value">
-                    {{status.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
+                    <mat-label>
+                        <span class="search-text-container">
+                            <fa-icon [icon]="faSearch"></fa-icon> <span class="search-text">Search</span> 
+                        </span>
+                    </mat-label>
+                    <input matInput (keyup)="changeGlobalFilter($event)" placeholder="Ex. Calc, MWF, Adam H. Berliner, etc">
+                </mat-form-field>
+            </div>
         </div>
-
-        <div class="flex">
-            <mat-form-field class="expand">
-                <mat-label>Department</mat-label>
-                <mat-select 
-                    [(value)]="selectedDepartment"
-                    (selectionChange)="applyFilter()"
-                >
-                    <mat-option *ngFor="let department of departmentOptions" [value]="department.value">
-                    {{department.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <div class="gap"></div>
-
-            <mat-form-field class="expand">
-                <mat-label>Gereqs</mat-label>
-                <mat-select 
-                    [(value)]="selectedGereq"
-                    (selectionChange)="changeGereqs($event)"
-                >
-                    <mat-option *ngFor="let gereq of gereqOptions" [value]="gereq.value">
-                    {{gereq.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <!-- Global Filter -->
-        <mat-form-field
-            class="expand"
-        >
-            <mat-label>Key Words</mat-label>
-            <input matInput (keyup)="changeGlobalFilter($event)" placeholder="Filter">
-        </mat-form-field>
 
         <div class="courses-table-container">            
             <app-courses-table
@@ -85,7 +95,7 @@
         </div>
 
         <div class="course-info-container">
-            <app-course-info 
+            <app-course-info
                 [hoveredCourse]="hoveredCourse">
             </app-course-info>
         </div>
