@@ -30,6 +30,11 @@ function formatOfferings(offerings) {
         Object.keys(timeTracker).includes(time)
             ? timeTracker[time] += day
             : timeTracker[time] = day
+
+        if (timeTracker[time] === 'MTWThF') {
+            timeTracker[time] = 'M-F'
+        }
+
     })
     const formattedOfferings = formatTimeTracker(timeTracker)
     return formattedOfferings
@@ -127,6 +132,6 @@ async function getCourses(term: Number): Promise<void> {
     writeCourses(`${term}.ts`, coursesToWrite)
 }
 
-getCourses(20211)
+getCourses(20202)
 
 

@@ -15,8 +15,6 @@ const departmentOptions = [
     { value: "CLASS", viewValue: "CLASS" },
     { value: "CSCI", viewValue: "CSCI" },
     { value: "DANCE", viewValue: "DANCE" },
-    { value: "DNCTE", viewValue: "DNCTE" },
-    { value: "DNCTH", viewValue: "DNCTH" },
     { value: "ECON", viewValue: "ECON" },
     { value: "EDUC", viewValue: "EDUC" },
     { value: "EN", viewValue: "EN" },
@@ -77,7 +75,6 @@ const departmentOptions = [
     { value: "THEAT", viewValue: "THEAT" },
     { value: "URBAN", viewValue: "URBAN" },
     { value: "WMGST", viewValue: "WMGST" },
-    { value: "WMNST", viewValue: "WMNST" },
     { value: "WRIT", viewValue: "WRIT" },
 ]
 
