@@ -1,74 +1,59 @@
 <div class="home">
 
     <div class="left-column">
-        
+
         <div class="filters">
             <div class="flex">
                 <mat-form-field class="expand">
                     <mat-label>Term</mat-label>
-                    <mat-select 
-                        (selectionChange)="changeTerm($event)"
-                        [(value)]="selectedTerm">
+                    <mat-select (selectionChange)="changeTerm($event)" [(value)]="selectedTerm">
                         <mat-option *ngFor="let term of terms" [value]="term.value">
-                        {{term.viewValue}}
+                            {{term.viewValue}}`
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-    
+
                 <div class="gap"></div>
-    
+
                 <mat-form-field class="expand">
                     <mat-label>Status</mat-label>
-                    <mat-select 
-                        [(value)]="selectedStatus"
-                        (selectionChange)="applyFilter()"
-                    >
+                    <mat-select [(value)]="selectedStatus" (selectionChange)="applyFilter()">
                         <mat-option *ngFor="let status of statusOptions" [value]="status.value">
-                        {{status.viewValue}}
+                            {{status.viewValue}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-    
+
             </div>
-    
+
             <div class="flex">
                 <mat-form-field class="expand">
                     <mat-label>Department</mat-label>
-                    <mat-select 
-                        [(value)]="selectedDepartment"
-                        (selectionChange)="applyFilter()"
-                    >
+                    <mat-select [(value)]="selectedDepartment" (selectionChange)="applyFilter()">
                         <mat-option *ngFor="let department of departmentOptions" [value]="department.value">
-                        {{department.viewValue}}
+                            {{department.viewValue}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-    
+
                 <div class="gap"></div>
-    
+
                 <mat-form-field class="expand">
                     <mat-label>Gereqs</mat-label>
-                    <mat-select 
-                        [(value)]="selectedGereq"
-                        (selectionChange)="changeGereqs($event)"
-                        [formControl]="geReqsControl"
-                        multiple
-                    >
+                    <mat-select [(value)]="selectedGereq" (selectionChange)="changeGereqs($event)" [formControl]="geReqsControl" multiple>
                         <mat-option *ngFor="let gereq of gereqOptions" [value]="gereq.value">
-                        {{gereq.viewValue}}
+                            {{ gereq.viewValue }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-    
+
             <!-- Global Filter -->
             <div class="search-bar">
-                <mat-form-field
-                    class="expand"
-                >
+                <mat-form-field class="expand">
                     <mat-label>
                         <span class="search-text-container">
-                            <fa-icon [icon]="faSearch"></fa-icon> <span class="search-text">Search</span> 
+                            <fa-icon [icon]="faSearch"></fa-icon> <span class="search-text">Search</span>
                         </span>
                     </mat-label>
                     <input matInput (keyup)="changeGlobalFilter($event)" placeholder="Ex. Calc, MWF, Adam H. Berliner, etc">
@@ -76,12 +61,8 @@
             </div>
         </div>
 
-        <div class="courses-table-container">            
-            <app-courses-table
-                [courses]="courses"
-                (setHoveredCourse)="setHoveredCourse($event)"
-                [hoveredCourse]="hoveredCourse"
-            ></app-courses-table>
+        <div class="courses-table-container">
+            <app-courses-table [courses]="courses" (setHoveredCourse)="setHoveredCourse($event)" [hoveredCourse]="hoveredCourse"></app-courses-table>
         </div>
 
     </div>
@@ -89,18 +70,15 @@
     <div class="right-column">
 
         <div class="profs-info-container">
-            <app-profs-info 
-                [hoveredProfs]="hoveredProfs">
+            <app-profs-info [hoveredProfs]="hoveredProfs">
             </app-profs-info>
         </div>
 
         <div class="course-info-container">
-            <app-course-info
-                [hoveredCourse]="hoveredCourse">
+            <app-course-info [hoveredCourse]="hoveredCourse">
             </app-course-info>
         </div>
 
     </div>
 
 </div>
-
