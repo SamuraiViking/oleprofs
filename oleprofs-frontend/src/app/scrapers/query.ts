@@ -5,5 +5,18 @@ import valid_profs from '../../static/valid_profs'
 
 const RMTProfNames = Object.keys(RMTProfs);
 
-console.log(RMTProfNames);
+const RMTProfFound = {}
+
+valid_profs.forEach(prof => {
+    if (RMTProfNames.includes(prof)) {
+        RMTProfFound[prof] = true
+    }
+});
+
+const RMTFoundProfs = Object.keys(RMTProfFound)
+
+const RMTmissingProfs = RMTProfNames.filter(prof => RMTFoundProfs.indexOf(prof) < 0)
+
+console.log(RMTmissingProfs);
+
 
