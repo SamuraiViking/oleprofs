@@ -8,37 +8,55 @@ const RMTProfsNames = Object.keys(RMTProfs);
 const unusedRMTProfs = RMTProfsNames.filter(prof => !allProfs.includes(prof))
 // Every Stolaf Prof on Rate my Professor who's name
 
-function removeMiddleName(fullName) {
-    fullName = fullName.split(" ");
-    if (fullName.length !== 3) {
-        return fullName
+function partialPalendrome(str1, str2, num) {
+    for (let i = 0; i < num; i++) {
+        if (str1.length === 0 || str2.length === 0) {
+            return false
+        }
+        if (str1[0] !== str2[0] || str1[str1.length - 1] !== str2[str2.length - 1]) {
+            return false
+        }
+        str1 = str1.substring(1, str1.length - 1)
+        str2 = str2.substring(1, str2.length - 1)
     }
-    return fullName[0] + " " + fullName[2]
+    return true
 }
 
-function firstAndLastNameMatchs(allProfs, unusedRMTProfs) {
-    const foundProfs = {}
-    unusedRMTProfs.forEach(unusedProf => {
+function sameLastName(unusedProf, allProf) {
 
+    unusedProf = unusedProf.split(" ")
+    unusedProf = unusedProf[unusedProf.length - 1]
+
+    allProf = allProf.split(" ")
+    allProf = allProf[allProf.length - 1]
+
+    if (unusedProf !== allProf) {
+        return false;
+    }
+
+    return true
+}
+
+function profMatches(allProfs, unusedRMTProfs) {
+    const foundProfs = []
+    unusedRMTProfs.forEach(unusedProf => {
         allProfs.forEach(allProf => {
 
-            const profNoMiddleName = removeMiddleName(allProf)
-
-            if (profNoMiddleName === unusedProf) {
-                foundProfs[unusedProf] = allProf;
+            if (!partialPalendrome(unusedProf, allProf, 3)) {
+                return
             }
+            if (!sameLastName(unusedProf, allProf)) {
+                return
+            }
+            foundProfs.push({
+                Stolaf: allProf,
+                RMT: unusedProf,
+            })
         });
     });
     return foundProfs
 }
 
-const foundProfs = firstAndLastNameMatchs(allProfs, unusedRMTProfs)
+const foundProfs = profMatches(allProfs, unusedRMTProfs)
 
-Object.keys(foundProfs).forEach(foundProf => {
-    const foundProfIdx = RMTProfsNames.indexOf(foundProf)
-    RMTProfsNames.splice(foundProfIdx, 1)
-    RMTProfsNames.push(foundProfs[foundProf])
-});
-
-const unusedRMTProfs2 = RMTProfsNames.filter(prof => !allProfs.includes(prof))
-
+console.log(foundProfs)
