@@ -8,62 +8,37 @@ const RMTProfsNames = Object.keys(RMTProfs);
 const unusedRMTProfs = RMTProfsNames.filter(prof => !allProfs.includes(prof))
 // Every Stolaf Prof on Rate my Professor who's name
 
+function removeMiddleName(fullName) {
+    fullName = fullName.split(" ");
+    if (fullName.length !== 3) {
+        return fullName
+    }
+    return fullName[0] + " " + fullName[2]
+}
 
-let count = 0;
-unusedRMTProfs.forEach(unusedProf => {
+function firstAndLastNameMatchs(allProfs, unusedRMTProfs) {
+    const foundProfs = {}
+    unusedRMTProfs.forEach(unusedProf => {
 
-    allProfs.forEach(allProf => {
+        allProfs.forEach(allProf => {
 
-        const splitAllProf = allProf.split(' ');
+            const profNoMiddleName = removeMiddleName(allProf)
 
-        if (splitAllProf.length === 3) {
-            allProf = splitAllProf[0] + ' ' + splitAllProf[2]
-        }
-
-
-        if (allProf === unusedProf) {
-            count += 1;
-            console.log(`${allProf}\t\t${unusedProf}`)
-        }
+            if (profNoMiddleName === unusedProf) {
+                foundProfs[unusedProf] = allProf;
+            }
+        });
     });
+    return foundProfs
+}
+
+const foundProfs = firstAndLastNameMatchs(allProfs, unusedRMTProfs)
+
+Object.keys(foundProfs).forEach(foundProf => {
+    const foundProfIdx = RMTProfsNames.indexOf(foundProf)
+    RMTProfsNames.splice(foundProfIdx, 1)
+    RMTProfsNames.push(foundProfs[foundProf])
 });
-console.log(count)
 
-
-// valid_profs.forEach(prof => {
-//     if (RMTProfNames.includes(prof)) {
-//         RMTProfFound[prof] = true
-//     }
-// });
-
-// const RMTFoundProfs = Object.keys(RMTProfFound)
-// const RMTmissingProfs = RMTProfNames.filter(prof => RMTFoundProfs.indexOf(prof) < 0)
-
-
-
-// let RMTProfNameToUnfoundProf = {}
-
-// RMTProfNames.forEach(prof => {
-
-//     if (!RMTProfNameToUnfoundProf.hasOwnProperty(prof)) {
-//         RMTProfNameToUnfoundProf[prof] = []
-//     }
-
-//     RMTmissingProfs.forEach(missingProf => {
-
-//         if (prof === missingProf) {
-//             console.log(`${prof} - ${missingProf}`)
-//         }
-
-//         const profLastLetter = prof[prof.length - 1]
-//         const missingProfLastLetter = missingProf[missingProf.length - 1]
-
-//         if (prof[0] === missingProf[0] && profLastLetter === missingProfLastLetter) {
-//             RMTProfNameToUnfoundProf[prof].push(missingProf);
-//         }
-//     });
-// });
-
-// // console.log(RMTProfNameToUnfoundProf)
-
+const unusedRMTProfs2 = RMTProfsNames.filter(prof => !allProfs.includes(prof))
 
